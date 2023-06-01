@@ -1,0 +1,100 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --tx-color: #323238;
+  --bg-color: #ffffff;
+
+  --bt-on: #02799D;
+  --bt-off: #E1E1E6;
+
+  font-size: 62.5%;
+}
+
+body {
+  background:  var(--bg-color);
+  height: 100%;
+  font-size: 1.6rem;
+
+  font-family:'Roboto', sans-serif;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 19.2rem;
+  margin-top: 19.4rem;
+}
+
+ .controlsTimer {
+  display: grid;
+  justify-items: center;
+  gap: 4.8rem;
+
+  height: 100%;
+} 
+
+#timer {
+  display: flex;
+}
+
+span {
+  font-size: 12.6rem;
+  line-height: 14.8rem;
+
+  color: var(--tx-color);
+}
+
+#controls {
+  display: flex;
+  gap: 4rem; 
+}
+
+
+#controls button {
+  background-color: transparent;
+}
+
+#controls button{
+  width: 4rem;
+  height: 4rem;
+}
+
+.sounds {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.2rem;
+}
+
+.sounds button {
+  width: 13.8rem;
+  height: 15.2rem;
+  
+  background: var(--bt-off);
+  
+  border-radius: 2.4rem ;
+  transition: all 400ms 100ms;
+}
+
+.soundOn svg path {
+  fill: var(--bg-color);
+}
+
+.sounds .soundOn {
+  background: var(--bt-on); 
+}
+
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(0.96);
+  transform: scale(1.02);
+}
