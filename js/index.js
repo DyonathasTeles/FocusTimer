@@ -1,3 +1,7 @@
+import { sound } from "./sounds.js"
+import { timers } from "./timer.js"
+import { controls } from "./controls.js"
+
 const ButtonAdd = document.querySelector(".add")
 const ButtonDecrement = document.querySelector(".remove")
 const buttonPlay = document.querySelector(".play")
@@ -10,104 +14,60 @@ const soundFireplace = document.querySelector(".fireplace")
 let minutesDisplay = document.querySelector(".minutes")
 let secondsDisplay = document.querySelector(".seconds")
 let minutes = Number(minutesDisplay.textContent)
-let timerTimeOut
 
+const Sound = sound()
 
-// Todas as Function 
+const timer = timers({ minutesDisplay, secondsDisplay, minutes })
 
-function timerAdd() {
+const control = controls({
+  soundCoffeeShop,
+  soundFireplace,
+  soundForest,
+  soundRain
+})
 
-  minutes = minutes + 5
-  updateTimerDisplay(minutes, 0)
-}
-
-function timerDecrement () {
-
-  if (minutes == 0) {
-    return
-  }
-  
-minutes = minutes - 5
-
-  updateTimerDisplay(minutes, 0)
-}
-
-function resetColorButtons() {
-soundCoffeeShop.classList.remove("soundOn")
-soundForest.classList.remove("soundOn")
-soundFireplace.classList.remove("soundOn")
-soundRain.classList.remove("soundOn")
-}
-
-function updateTimerDisplay(minutes, seconds) {
-  secondsDisplay.textContent = String(seconds).padStart(2,"0")
-  minutesDisplay.textContent = String(minutes).padStart(2,"0")
-}
-
-function countdown() {
-    timerTimeOut = setTimeout(() => {
-    let minutes = minutesDisplay.textContent
-    let seconds = secondsDisplay.textContent
-
-    updateTimerDisplay(minutes, 0)
-
-    if (minutes <= 0 && seconds <= 0) {
-      return
-    }
-
-    if (seconds <= 0) {
-      seconds = 10
-      --minutes
-    }
-
-    updateTimerDisplay(minutes, String( seconds - 1 ))
-
-    countdown()
-  }, 1000)
-}
-
-// Buttons dos controles do site
 
 buttonPlay.addEventListener("click", () => {
   if (minutes == 0) {
     return
   }
-  countdown()
+  timer.countdown()
+  Sound.pressButton()
 })
 
 ButtonStop.addEventListener("click", () => {
-  updateTimerDisplay(minutes, 0)
-  clearTimeout(timerTimeOut)
+  timer.updateTimerDisplay(minutes, 0)  
+  timer.stop()
+  Sound.pressButton()
 })
 
-ButtonAdd.addEventListener("click", () => {
-  timerAdd()
+ButtonAdd.addEventListener("click", () => { 
+  timer.timerAdd()
 })
 
 ButtonDecrement.addEventListener("click", () => {
-  timerDecrement()
+  timer.timerDecrement()
 })
 
-// Buttons de som do site
 
 soundRain.addEventListener("click", () => {
-  resetColorButtons()
-  soundRain.classList.add("soundOn")
+  control.rainColor()
+  Sound.Rain()
 })
 
 soundFireplace.addEventListener("click", () => {
-  resetColorButtons()
-soundFireplace.classList.add("soundOn")
+  control.fireplaceColor()
+  Sound.fireplace()
 })
 
 soundForest.addEventListener("click", () => {
-  resetColorButtons()
-soundForest.classList.add("soundOn")
+ control.forestColor()
+ Sound.Forest()
 })
 
 soundCoffeeShop.addEventListener("click", () => {
-  resetColorButtons()
-soundCoffeeShop.classList.add("soundOn")
+  control.coffeeColor()
+  Sound.Coffee()
 })
 
 
